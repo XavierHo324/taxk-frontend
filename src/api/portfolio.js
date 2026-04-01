@@ -34,3 +34,11 @@ export function buyStock(payload) {
 export function sellStock(payload) {
   return http.post('/portfolio/sell', payload)
 }
+
+export function fetchGeneralNews() {
+  return http.get('/portfolio/news').then((r) => r.data)
+}
+
+export function fetchTickerNews(ticker) {
+  return http.get(`/portfolio/${ticker}/news`).then((r) => r.data)
+}
