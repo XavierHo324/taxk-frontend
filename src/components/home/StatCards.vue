@@ -2,133 +2,133 @@
 import { computed } from 'vue'
 import { usePortfolioStore } from '@/stores/portfolio'
 import { formatCurrency, formatPercent, colorClass } from '@/utils/formatters'
-import { Plus } from '@element-plus/icons-vue'
 
-const emit = defineEmits(['add-position'])
 const store = usePortfolioStore()
 const s = computed(() => store.summary)
 </script>
 
 <template>
-  <section class="stat-cards">
-    <div class="stat-card total-value">
-      <span class="stat-label">Total Value</span>
-      <span class="stat-value">{{ formatCurrency(s?.totalValue) }}</span>
+  <header class="portfolio-header">
+    <!-- Left: brand + total value -->
+    <div class="header-left">
+      <span class="brand-label">My Portfolio</span>
+      <span class="total-value mono-number">{{ formatCurrency(s?.totalValue) }}</span>
     </div>
 
-    <div class="stat-card">
-      <span class="stat-label">Total P&amp;L</span>
-      <span class="stat-value" :class="colorClass(s?.totalPnl)">
-        {{ formatCurrency(s?.totalPnl) }}
-        <small>{{ formatPercent(s?.totalReturnPercent) }}</small>
-      </span>
+    <!-- Right: inline metrics -->
+    <div class="header-metrics">
+      <div class="metric">
+        <span class="metric-label">Total P&amp;L</span>
+        <span class="metric-val mono-number" :class="colorClass(s?.totalPnl)">
+          {{ formatCurrency(s?.totalPnl) }}&nbsp;<em>{{ formatPercent(s?.totalReturnPercent) }}</em>
+        </span>
+      </div>
+      <div class="sep" />
+      <div class="metric">
+        <span class="metric-label">Today</span>
+        <span class="metric-val mono-number" :class="colorClass(s?.todayChange)">
+          {{ formatCurrency(s?.todayChange) }}&nbsp;<em>{{ formatPercent(s?.todayChangePercent) }}</em>
+        </span>
+      </div>
+      <div class="sep" />
+      <div class="metric">
+        <span class="metric-label">Best</span>
+        <span class="metric-val mono-number gain" v-if="s?.bestPerformer">
+          {{ s.bestPerformer.ticker }}&nbsp;<em>{{ formatPercent(s.bestPerformer.returnPercent) }}</em>
+        </span>
+        <span class="metric-val neutral" v-else>--</span>
+      </div>
+      <div class="sep" />
+      <div class="metric">
+        <span class="metric-label">Worst</span>
+        <span class="metric-val mono-number loss" v-if="s?.worstPerformer">
+          {{ s.worstPerformer.ticker }}&nbsp;<em>{{ formatPercent(s.worstPerformer.returnPercent) }}</em>
+        </span>
+        <span class="metric-val neutral" v-else>--</span>
+      </div>
     </div>
-
-    <div class="stat-card">
-      <span class="stat-label">Today's Change</span>
-      <span class="stat-value" :class="colorClass(s?.todayChange)">
-        {{ formatCurrency(s?.todayChange) }}
-        <small>{{ formatPercent(s?.todayChangePercent) }}</small>
-      </span>
-    </div>
-
-    <div class="stat-card">
-      <span class="stat-label">Best Performer</span>
-      <span class="stat-value gain" v-if="s?.bestPerformer">
-        {{ s.bestPerformer.ticker }}
-        <small>{{ formatPercent(s.bestPerformer.returnPercent) }}</small>
-      </span>
-      <span class="stat-value neutral" v-else>--</span>
-    </div>
-
-    <div class="stat-card">
-      <span class="stat-label">Worst Performer</span>
-      <span class="stat-value loss" v-if="s?.worstPerformer">
-        {{ s.worstPerformer.ticker }}
-        <small>{{ formatPercent(s.worstPerformer.returnPercent) }}</small>
-      </span>
-      <span class="stat-value neutral" v-else>--</span>
-    </div>
-
-    <div class="stat-card action-card" @click="emit('add-position')">
-      <el-icon :size="28"><Plus /></el-icon>
-      <span class="action-label">Add Position</span>
-    </div>
-  </section>
+  </header>
 </template>
 
 <style scoped>
-.stat-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: var(--card-gap);
-  margin-bottom: var(--section-gap);
+.portfolio-header {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-header);
+  padding: 0 28px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-shrink: 0;
 }
 
-.stat-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--card-radius);
-  padding: var(--card-padding);
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.brand-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.total-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+
+.header-metrics {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+}
+
+.metric {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  gap: 1px;
+  padding: 0 20px;
 }
 
-.stat-card:hover {
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-card);
+.sep {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+  flex-shrink: 0;
 }
 
-.stat-card.total-value {
-  border-color: var(--accent-muted);
-  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(14, 165, 233, 0.06) 100%);
-}
-
-.stat-label {
-  font-size: 12px;
-  font-weight: 500;
+.metric-label {
+  font-size: 10px;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--text-muted);
+  white-space: nowrap;
 }
 
-.stat-value {
-  font-family: 'Outfit', sans-serif;
-  font-size: 20px;
+.metric-val {
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
+  white-space: nowrap;
 }
 
-.stat-value small {
-  font-size: 13px;
+.metric-val em {
+  font-style: normal;
   font-weight: 500;
+  font-size: 12px;
 }
 
-.stat-value.gain { color: var(--gain); }
-.stat-value.loss { color: var(--loss); }
-.stat-value.neutral { color: var(--text-secondary); }
-
-.action-card {
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border-style: dashed;
-  color: var(--accent);
-  transition: background var(--transition-fast), border-color var(--transition-fast);
-}
-
-.action-card:hover {
-  background: var(--accent-muted);
-  border-color: var(--accent);
-}
-
-.action-label {
-  font-size: 14px;
-  font-weight: 600;
-}
+.metric-val.gain { color: var(--gain); }
+.metric-val.loss { color: var(--loss); }
+.metric-val.neutral { color: var(--text-muted); }
 </style>

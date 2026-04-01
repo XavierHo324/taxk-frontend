@@ -40,7 +40,7 @@ async function handleSubmit() {
     emit('success')
     emit('update:modelValue', false)
   } catch {
-    // Error already handled by interceptor
+    // Error handled by API interceptor
   } finally {
     submitting.value = false
   }
@@ -58,7 +58,6 @@ function handleClose() {
     width="440px"
     :close-on-click-modal="false"
     @update:model-value="handleClose"
-    class="trade-dialog"
   >
     <el-form label-position="top" @submit.prevent="handleSubmit">
       <el-form-item label="Ticker">
@@ -74,7 +73,7 @@ function handleClose() {
           controls-position="right"
           style="width: 100%"
         />
-        <div class="max-hint">Max: {{ maxQuantity }}</div>
+        <div class="max-hint">Available: {{ maxQuantity }} shares</div>
       </el-form-item>
 
       <el-form-item label="Note (optional)">
@@ -89,8 +88,8 @@ function handleClose() {
     </el-form>
 
     <template #footer>
-      <el-button @click="handleClose" round>Cancel</el-button>
-      <el-button type="danger" :loading="submitting" @click="handleSubmit" round>
+      <el-button @click="handleClose">Cancel</el-button>
+      <el-button type="danger" :loading="submitting" @click="handleSubmit">
         Confirm Sell
       </el-button>
     </template>
@@ -102,27 +101,5 @@ function handleClose() {
   font-size: 12px;
   color: var(--text-muted);
   margin-top: 4px;
-}
-
-.trade-dialog :deep(.el-dialog) {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-}
-
-.trade-dialog :deep(.el-dialog__header) {
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 16px;
-}
-
-.trade-dialog :deep(.el-dialog__title) {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.trade-dialog :deep(.el-dialog__footer) {
-  border-top: 1px solid var(--border);
-  padding-top: 16px;
 }
 </style>

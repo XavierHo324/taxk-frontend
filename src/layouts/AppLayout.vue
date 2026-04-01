@@ -15,13 +15,14 @@ import AppSidebar from '@/components/sidebar/AppSidebar.vue'
 .app-layout {
   display: flex;
   min-height: 100vh;
-  background: var(--bg-base);
+  background: var(--bg-page);
 }
 
 .main-content {
   flex: 1;
-  padding: var(--section-gap);
   overflow-y: auto;
   max-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 </style>

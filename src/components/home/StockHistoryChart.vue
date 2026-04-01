@@ -28,8 +28,8 @@ const chartData = computed(() => {
     {
       label: 'Price',
       data: history.value.map((d) => d.close),
-      borderColor: '#0ea5e9',
-      backgroundColor: 'rgba(14, 165, 233, 0.08)',
+      borderColor: '#2563EB',
+      backgroundColor: 'rgba(37, 99, 235, 0.06)',
       fill: true,
       tension: 0.3,
       pointRadius: 0,
@@ -42,7 +42,7 @@ const chartData = computed(() => {
     datasets.push({
       label: 'Avg Cost',
       data: labels.map(() => props.averageCost),
-      borderColor: '#f59e0b',
+      borderColor: '#D97706',
       borderDash: [6, 4],
       borderWidth: 1.5,
       pointRadius: 0,
@@ -60,14 +60,21 @@ const chartOptions = {
   scales: {
     x: {
       grid: { display: false },
-      ticks: { maxTicksLimit: 6, font: { size: 10 } },
+      ticks: {
+        maxTicksLimit: 6,
+        font: { size: 10, family: "'Inter', sans-serif" },
+        color: '#94A3B8',
+      },
+      border: { color: '#E2E8F0' },
     },
     y: {
-      grid: { color: 'rgba(255,255,255,0.04)' },
+      grid: { color: 'rgba(0,0,0,0.04)' },
       ticks: {
         callback: (v) => '$' + v.toFixed(0),
-        font: { size: 10 },
+        font: { size: 10, family: "'Inter', sans-serif" },
+        color: '#94A3B8',
       },
+      border: { dash: [4, 2], color: 'transparent' },
     },
   },
   plugins: {
@@ -86,7 +93,7 @@ const chartOptions = {
     <div v-if="loading" class="chart-loading">
       <el-skeleton :rows="3" animated />
     </div>
-    <div v-else-if="history.length === 0" class="chart-empty">No history data</div>
+    <div v-else-if="history.length === 0" class="chart-empty">No history data available</div>
     <div v-else class="chart-container">
       <Line :data="chartData" :options="chartOptions" />
     </div>

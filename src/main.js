@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import 'element-plus/theme-chalk/dark/css-vars.css'
 
 import {
   Chart as ChartJS,
@@ -27,9 +26,9 @@ import '@/assets/styles/element-overrides.css'
 
 ChartJS.register(DoughnutController, LineController, ArcElement, LineElement, PointElement, CategoryScale, LinearScale, Tooltip, Legend, Filler)
 
-ChartJS.defaults.color = '#8b8f9a'
-ChartJS.defaults.borderColor = 'rgba(255, 255, 255, 0.08)'
-ChartJS.defaults.font.family = "'DM Sans', sans-serif"
+ChartJS.defaults.color = '#64748B'
+ChartJS.defaults.borderColor = '#E2E8F0'
+ChartJS.defaults.font.family = "'Inter', -apple-system, sans-serif"
 
 const app = createApp(App)
 
