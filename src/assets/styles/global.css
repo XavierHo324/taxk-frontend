@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 *,
 *::before,
 *::after {
@@ -13,21 +15,22 @@ html {
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
-  background-color: var(--bg-deep);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg-page);
   color: var(--text-primary);
   line-height: 1.5;
   min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
 }
 
+/* Tabular numbers for all financial data */
 .mono-number {
-  font-family: 'JetBrains Mono', monospace;
   font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
 }
 
 .gain { color: var(--gain); }
@@ -41,20 +44,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-deep);
+  background: var(--bg-page);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-elevated);
+  background: var(--border-strong);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: #94A3B8;
 }
 
 .card {
-  background: var(--bg-card);
+  background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--card-radius);
   padding: var(--card-padding);

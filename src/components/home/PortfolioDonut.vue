@@ -7,8 +7,9 @@ import { formatCurrency } from '@/utils/formatters'
 const store = usePortfolioStore()
 
 const palette = [
-  '#0ea5e9', '#8b5cf6', '#f59e0b', '#22c55e', '#ef4444',
-  '#ec4899', '#14b8a6', '#f97316', '#6366f1', '#84cc16',
+  '#2563EB', '#059669', '#D97706', '#7C3AED',
+  '#DB2777', '#0891B2', '#DC2626', '#0D9488',
+  '#4F46E5', '#65A30D',
 ]
 
 const chartData = computed(() => {
@@ -19,8 +20,9 @@ const chartData = computed(() => {
       {
         data: h.map((x) => x.marketValue ?? 0),
         backgroundColor: h.map((_, i) => palette[i % palette.length]),
-        borderColor: 'transparent',
-        hoverOffset: 6,
+        borderColor: '#FFFFFF',
+        borderWidth: 2,
+        hoverOffset: 4,
       },
     ],
   }
@@ -29,15 +31,16 @@ const chartData = computed(() => {
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
-  cutout: '68%',
+  cutout: '65%',
   plugins: {
     legend: {
       position: 'right',
       labels: {
-        padding: 16,
+        padding: 14,
         usePointStyle: true,
         pointStyle: 'circle',
-        font: { size: 12, family: "'DM Sans', sans-serif" },
+        font: { size: 12, family: "'Inter', sans-serif" },
+        color: '#475569',
       },
     },
     tooltip: {
@@ -54,8 +57,10 @@ const chartOptions = {
 </script>
 
 <template>
-  <div class="chart-card donut-card">
-    <h3 class="chart-title">Allocation</h3>
+  <div class="chart-card">
+    <div class="chart-header">
+      <h3 class="chart-title">Allocation</h3>
+    </div>
     <div v-if="store.isEmpty" class="empty-state">No holdings yet</div>
     <div v-else class="chart-wrap">
       <Doughnut :data="chartData" :options="chartOptions" />
@@ -65,28 +70,28 @@ const chartOptions = {
 
 <style scoped>
 .chart-card {
-  background: var(--bg-card);
+  background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: var(--card-radius);
-  padding: var(--card-padding);
-  transition: border-color var(--transition-fast);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
 }
 
-.chart-card:hover {
-  border-color: var(--border-hover);
+.chart-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
 }
 
 .chart-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 16px;
 }
 
 .chart-wrap {
   position: relative;
   height: 260px;
+  padding: 16px;
 }
 
 .empty-state {

@@ -13,6 +13,7 @@ const emit = defineEmits(['buy', 'sell'])
   <div class="holding-detail">
     <!-- Left: Chart -->
     <div class="detail-chart">
+      <div class="chart-label">Price History</div>
       <StockHistoryChart :ticker="holding.ticker" :average-cost="holding.averageCost" />
     </div>
 
@@ -24,36 +25,34 @@ const emit = defineEmits(['buy', 'sell'])
       </div>
       <div class="detail-stat">
         <span class="detail-label">Cost Basis</span>
-        <span class="detail-value">{{ formatCurrency(holding.costBasis) }}</span>
+        <span class="detail-value mono-number">{{ formatCurrency(holding.costBasis) }}</span>
       </div>
       <div class="detail-stat">
         <span class="detail-label">Avg Cost</span>
-        <span class="detail-value">{{ formatCurrency(holding.averageCost) }}</span>
+        <span class="detail-value mono-number">{{ formatCurrency(holding.averageCost) }}</span>
       </div>
       <div class="detail-stat">
         <span class="detail-label">First Buy</span>
         <span class="detail-value">{{ holding.firstBuyDate || '--' }}</span>
       </div>
       <div class="detail-stat">
-        <span class="detail-label">Return</span>
-        <span class="detail-value" :class="colorClass(holding.returnPercent)">
+        <span class="detail-label">Total Return</span>
+        <span class="detail-value mono-number" :class="colorClass(holding.returnPercent)">
           {{ formatPercent(holding.returnPercent) }}
         </span>
       </div>
       <div class="detail-stat">
         <span class="detail-label">Weight</span>
-        <span class="detail-value">{{ holding.weight != null ? holding.weight.toFixed(1) + '%' : '--' }}</span>
+        <span class="detail-value mono-number">
+          {{ holding.weight != null ? holding.weight.toFixed(1) + '%' : '--' }}
+        </span>
       </div>
     </div>
 
     <!-- Right: Actions -->
     <div class="detail-actions">
-      <el-button type="primary" @click="emit('buy', holding.ticker)" round>
-        Buy More
-      </el-button>
-      <el-button type="danger" plain @click="emit('sell', holding.ticker, holding.quantity)" round>
-        Sell
-      </el-button>
+      <el-button type="primary" @click="emit('buy', holding.ticker)">Buy More</el-button>
+      <el-button type="danger" plain @click="emit('sell', holding.ticker, holding.quantity)">Sell</el-button>
     </div>
   </div>
 </template>
@@ -63,8 +62,16 @@ const emit = defineEmits(['buy', 'sell'])
   display: grid;
   grid-template-columns: 1.2fr 1fr auto;
   gap: 24px;
-  padding: 16px 8px;
   align-items: start;
+}
+
+.chart-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
 }
 
 .detail-stats {
@@ -81,13 +88,14 @@ const emit = defineEmits(['buy', 'sell'])
 
 .detail-label {
   font-size: 11px;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   color: var(--text-muted);
 }
 
 .detail-value {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-primary);
 }
@@ -98,8 +106,8 @@ const emit = defineEmits(['buy', 'sell'])
 .detail-actions {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding-top: 8px;
+  gap: 8px;
+  padding-top: 24px;
 }
 
 @media (max-width: 900px) {

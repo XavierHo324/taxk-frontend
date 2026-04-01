@@ -11,7 +11,6 @@ import SellDialog from '@/components/trade/SellDialog.vue'
 
 const store = usePortfolioStore()
 
-// Dialog state
 const buyDialogVisible = ref(false)
 const buyInitialTicker = ref('')
 const sellDialogVisible = ref(false)
@@ -36,20 +35,24 @@ function openSellDialog(ticker, maxQty) {
 
 <template>
   <div v-loading="store.loading" class="home-view">
-    <!-- Header: Stat Cards -->
-    <StatCards @add-position="openBuyDialog()" />
+    <!-- Header bar (full-width, no padding) -->
+    <StatCards />
 
-    <!-- Charts Row -->
-    <div class="charts-row">
-      <PortfolioDonut />
-      <PerformanceChart />
+    <!-- Page content below header -->
+    <div class="page-body">
+      <!-- Charts Row -->
+      <div class="charts-row">
+        <PortfolioDonut />
+        <PerformanceChart />
+      </div>
+
+      <!-- Holdings Table -->
+      <HoldingsTable
+        @buy="openBuyDialog"
+        @sell="openSellDialog"
+        @add-position="openBuyDialog()"
+      />
     </div>
-
-    <!-- Holdings Table -->
-    <HoldingsTable
-      @buy="openBuyDialog"
-      @sell="openSellDialog"
-    />
 
     <!-- Trade Dialogs -->
     <BuyDialog
@@ -70,8 +73,16 @@ function openSellDialog(ticker, maxQty) {
 .home-view {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-body {
+  display: flex;
+  flex-direction: column;
   gap: var(--section-gap);
+  padding: var(--section-gap) 28px 32px;
   max-width: 1400px;
+  width: 100%;
 }
 
 .charts-row {
