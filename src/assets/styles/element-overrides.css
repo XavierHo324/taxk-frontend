@@ -1,0 +1,67 @@
+html.dark {
+  --el-bg-color: var(--bg-base);
+  --el-bg-color-overlay: var(--bg-card);
+  --el-bg-color-page: var(--bg-deep);
+  --el-text-color-primary: var(--text-primary);
+  --el-text-color-regular: var(--text-secondary);
+  --el-text-color-placeholder: var(--text-muted);
+  --el-border-color: var(--border);
+  --el-border-color-light: var(--border);
+  --el-border-color-lighter: var(--border);
+  --el-color-primary: var(--accent);
+  --el-color-primary-light-3: rgba(14, 165, 233, 0.3);
+  --el-color-primary-light-5: rgba(14, 165, 233, 0.2);
+  --el-color-primary-light-7: rgba(14, 165, 233, 0.15);
+  --el-color-primary-light-9: rgba(14, 165, 233, 0.1);
+  --el-color-primary-dark-2: #0b8ec7;
+  --el-fill-color: var(--bg-elevated);
+  --el-fill-color-blank: var(--bg-card);
+  --el-fill-color-light: var(--bg-elevated);
+
+  /* Table */
+  --el-table-bg-color: var(--bg-base);
+  --el-table-tr-bg-color: var(--bg-base);
+  --el-table-header-bg-color: var(--bg-elevated);
+  --el-table-row-hover-bg-color: var(--bg-elevated);
+  --el-table-expanded-cell-bg-color: var(--bg-card);
+  --el-table-border-color: var(--border);
+
+  /* Dialog */
+  --el-dialog-bg-color: var(--bg-card);
+  --el-dialog-border-radius: var(--card-radius);
+
+  /* Menu (sidebar) */
+  --el-menu-bg-color: var(--bg-deep);
+  --el-menu-text-color: var(--text-secondary);
+  --el-menu-active-color: var(--accent);
+  --el-menu-hover-bg-color: var(--bg-elevated);
+  --el-menu-item-height: 48px;
+
+  /* Input */
+  --el-input-bg-color: var(--bg-elevated);
+  --el-input-text-color: var(--text-primary);
+  --el-input-border-color: var(--border);
+
+  /* Button primary tweaks */
+  --el-button-bg-color: var(--bg-elevated);
+  --el-button-border-color: var(--border);
+  --el-button-text-color: var(--text-primary);
+  --el-button-hover-bg-color: var(--bg-card);
+  --el-button-hover-border-color: var(--border-hover);
+}
+
+/* Sidebar menu active item accent bar */
+.el-menu-item.is-active {
+  background-color: var(--accent-muted) !important;
+  border-right: 3px solid var(--accent);
+}
+
+/* Table row cursor for expandable */
+.el-table__row {
+  cursor: pointer;
+}
+
+/* Dialog overlay darken */
+.el-overlay {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
