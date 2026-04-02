@@ -1,14 +1,14 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { HomeFilled, DataLine, Document, ChatDotRound } from '@element-plus/icons-vue'
+import { HomeFilled, MagicStick, Document, ChatDotRound } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const activePath = computed(() => route.path)
 
 const navItems = [
   { path: '/home', label: 'Home', icon: HomeFilled },
-  { path: '/market', label: 'Market List', icon: DataLine },
+  { path: '/market', label: 'AI Recommend', icon: MagicStick },
   { path: '/news', label: 'News', icon: Document },
   { path: '/ai-chat', label: 'AI Chat', icon: ChatDotRound },
 ]
