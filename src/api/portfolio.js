@@ -42,4 +42,10 @@ export function fetchAiRecommend() {
 
 export function chatWithAi(message) {
   return http.post('/ai/chat', { message }, { timeout: 180000 }).then((r) => r.data)
+export function fetchGeneralNews() {
+  return http.get('/portfolio/news').then((r) => r.data)
+}
+
+export function fetchTickerNews(ticker) {
+  return http.get(`/portfolio/${ticker}/news`).then((r) => r.data)
 }
