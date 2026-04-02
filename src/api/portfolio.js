@@ -12,7 +12,7 @@ http.interceptors.response.use(
     const msg = err.response?.data?.message || err.response?.data || err.message
     ElMessage.error(String(msg))
     return Promise.reject(err)
-  }
+  },
 )
 
 export function fetchPortfolio() {
@@ -42,6 +42,7 @@ export function fetchAiRecommend() {
 
 export function chatWithAi(message) {
   return http.post('/ai/chat', { message }, { timeout: 180000 }).then((r) => r.data)
+}
 export function fetchGeneralNews() {
   return http.get('/portfolio/news').then((r) => r.data)
 }
