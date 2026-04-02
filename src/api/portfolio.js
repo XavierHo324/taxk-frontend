@@ -35,6 +35,13 @@ export function sellStock(payload) {
   return http.post('/portfolio/sell', payload)
 }
 
+// AI endpoints — long timeout because the agent may take 60+ seconds
+export function fetchAiRecommend() {
+  return http.post('/ai/recommend', null, { timeout: 180000 }).then((r) => r.data)
+}
+
+export function chatWithAi(message) {
+  return http.post('/ai/chat', { message }, { timeout: 180000 }).then((r) => r.data)
 export function fetchGeneralNews() {
   return http.get('/portfolio/news').then((r) => r.data)
 }
